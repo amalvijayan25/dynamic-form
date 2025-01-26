@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FiledGroupContainerComponent } from '../../field-group/filed-group-container/filed-group-container.component';
+import { FiledGroupContainerComponent } from '../filed-group-container/filed-group-container.component';
 
 @Component({
   selector: 'app-layout',
