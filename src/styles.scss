@@ -1,2 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss";
+// @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+* {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0; /* Reset margin */
+  padding: 0; /* Reset padding */
+  box-sizing: border-box; /* Ensure padding/border don't affect width/height */
+}

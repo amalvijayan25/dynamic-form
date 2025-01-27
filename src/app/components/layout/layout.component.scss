@@ -1,0 +1,30 @@
+  
+  .container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh; // Full screen height
+    padding-top: 1rem;
+    .section {
+      display: flex;
+    //   align-items: center;
+      justify-content: center;
+      color: black;
+      font-size: 1rem;
+  
+      &--first {
+        flex: 1; // 1/4 of the screen
+        background-color: white; // Blue
+      }
+  
+      &--second {
+        flex: 2; // 1/2 of the screen
+        background-color:white; // Green
+      }
+  
+      &--third {
+        flex: 1; // 1/4 of the screen
+        background-color: white; // Red
+      }
+    }
+  }
+  

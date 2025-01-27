@@ -1,0 +1,24 @@
+@if(!selectedForm){
+<div class="no-data-container">
+  <div class="message">
+    <p>Create New Group</p>
+  </div>
+</div>
+} @else {
+<div class="header">
+  <div class="header-row">
+    <div class="title">{{ selectedForm?.value.formName }}</div>
+
+    <div class="action-buttons">
+      <button>Edit</button>
+      <button>Copy</button>
+      <button>Delete</button>
+    </div>
+  </div>
+
+  <div class="description">
+    This is a description that provides more details about the page or section.
+  </div>
+</div>
+
+}

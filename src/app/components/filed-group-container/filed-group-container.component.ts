@@ -22,7 +22,9 @@ export class FiledGroupContainerComponent {
   }
 
   public addFormGroup() {
-    this.formDataService.addNewFormGroup(this.newFormName);
+    if (this.newFormName != '') {
+      this.formDataService.addNewFormGroup(this.newFormName);
+    }
     this.closeNameModel();
   }
 

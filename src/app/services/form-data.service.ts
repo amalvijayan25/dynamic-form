@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormDataService {
-  public dynamicFormsArray!: FormArray;
+  public dynamicFormsArray! : FormArray;
+  public selectedFormIndex = signal<number>(-1);
 
   constructor(private formBuilder: FormBuilder) {
     this.dynamicFormsArray = formBuilder.array([]);
@@ -15,9 +16,7 @@ export class FormDataService {
     let formGroup = this.formBuilder.group({
       formName: formName,
     });
-    this.dynamicFormsArray.push(formGroup);
-
-    console.log(this.dynamicFormsArray);
-    
+    this.dynamicFormsArray.push(formGroup);   
+    this.selectedFormIndex.set(this.dynamicFormsArray.length -1) 
   }
 }

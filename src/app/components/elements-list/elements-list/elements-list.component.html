@@ -1,0 +1,10 @@
+<h5>Elements</h5>
+@for(element of elementsList; track element){
+<span>{{ element.categoryName }}</span>
+@for (control of element.controlList; track $index) {
+<span class="flex">
+  {{ control.icon }}
+  {{ control.controlName }}
+</span>
+<p>{{ control.description }}</p>
+} }
