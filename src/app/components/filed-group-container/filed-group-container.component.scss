@@ -158,7 +158,8 @@
   .group-list {
     // width: 500px;
     max-width: 100%;
-    border: solid 1px #ccc;
+    border: none;
+    border-bottom: 1px solid #d3d3d3;
     min-height: 50px;
     display: block;
     background: white;

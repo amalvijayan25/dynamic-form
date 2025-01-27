@@ -97,6 +97,6 @@ export class ElementsListComponent {
   }
 
   public fieldSelectionHandler(selectedControl:any) {
-    this.formDataService.addFormControl(selectedControl.fieldType);
+    this.formDataService.addFormControl(selectedControl.fieldType);    
   }
 }

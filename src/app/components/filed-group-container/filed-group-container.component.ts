@@ -23,9 +23,7 @@ export class FiledGroupContainerComponent {
   public addFormGroup() {
     if (this.newFormName != '') {
       this.formDataService.addNewFormGroup(this.newFormName);
-    }
-    console.log(this.formDataService.dynamicFormsArray.controls);
-    
+    }    
     this.closeNameModel();
   }
 
@@ -38,7 +36,7 @@ export class FiledGroupContainerComponent {
     this.showNameModel = false;
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  public drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.formGroupsControl, event.previousIndex, event.currentIndex);
   }
 }

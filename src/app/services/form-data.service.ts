@@ -29,11 +29,15 @@ export class FormDataService {
 
   public addFormControl(controlDetail: any) {
     let newControl = this.formBuilder.group({
-      fieldType: controlDetail,
-      fieldValue: null,
-      fieldLabel: null,
+      fieldType:controlDetail,
+      fieldValue: [''],
+      fieldDescription: [''],
+      fieldLabel: [''],
     });
 
-    (this.selectedFormGroup().get('fieldArray') as FormArray).push(newControl);
+    (this.dynamicFormsArray.controls[
+      this.selectedFormIndex()
+    ].get('fieldArray') as FormArray).push(newControl);
+   
   }
 }

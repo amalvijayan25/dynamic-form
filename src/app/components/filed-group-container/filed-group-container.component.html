@@ -1,28 +1,23 @@
 <div class="left-section">
   <div class="header">
-    <h5 >Field Groups</h5>
-    <button
-      class="action-button"
-      (click)="openNameModel()"
-    >
-      Create new
-    </button>
+    <h5>Field Groups</h5>
+    <button class="action-button" (click)="openNameModel()">Create new</button>
   </div>
   <div class="subtitle">Default field group</div>
-  <ul>
-    <div cdkDropList class="group-list" (cdkDropListDropped)="drop($event)">
-      @for(formGroup of formGroupsControl; track formGroup){
-        <div class="group-box" cdkDrag>{{ formGroup.getRawValue().formName }}</div>
-      }
+  <div cdkDropList class="group-list" (cdkDropListDropped)="drop($event)">
+    @if(formGroupsControl.length > 0){ @for(formGroup of formGroupsControl;
+    track formGroup){
+    <div class="group-box" cdkDrag>
+      {{ formGroup.getRawValue().formName }}
     </div>
-    
-  </ul>
+    } } @else {
+    <div class="group-box">No Groups Created</div>
+    }
+  </div>
 </div>
 
 @if(showNameModel){
-<div
-  class="modal-overlay"
->
+<div class="modal-overlay">
   <div class="modal">
     <h2 class="modal__header">Create New Form Group</h2>
     <div class="modal__body">
@@ -35,19 +30,14 @@
       />
     </div>
     <div class="modal__footer">
+      <button class="button--cancel" (click)="closeNameModel()">Close</button>
       <button
-      class="button--cancel"
-      (click)="closeNameModel()"
+        [disabled]="newFormName === ''"
+        class="button--confirm"
+        (click)="addFormGroup()"
       >
-      Close
-    </button>
-    <button
-      [disabled]="newFormName === '' "
-      class="button--confirm"
-      (click)="addFormGroup()"
-    >
-      Create
-    </button>
+        Create
+      </button>
     </div>
   </div>
 </div>
