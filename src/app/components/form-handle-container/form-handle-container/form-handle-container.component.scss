@@ -15,10 +15,10 @@
   .header {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding-top: 20px;
     background-color: #f5f5f5; 
+    border-bottom: 1px solid #c6c6c6;
   }
   
   .header-row {
@@ -28,12 +28,21 @@
     align-items: center;
   }
   
-  .title {
-    flex-grow: 1;
-    text-align: left;
+  .title-input {
+    border: none;
+    border-radius: 2rem;
+    border-bottom: 1px solid #bababa;
+    background-color: #e4e4e4;
+    outline: none;               
+    padding: 0.8rem .5rem;        
+    box-shadow: none;
     font-size: 1.8rem;
     font-weight: 600;
     color: #333;
+    &:disabled{
+        border-bottom: none;
+        background-color: white;
+    }
   }
   
   .action-buttons {
@@ -58,10 +67,21 @@
   }
   
   .description {
-    margin-top: 10px;
+    border: none;
+    border-bottom: 1px solid #bababa;
+    border-radius: 2rem;
+    background-color: #e4e4e4;
+    outline: none;               
+    padding: 0.8rem 1rem;  
+    margin-bottom: 1rem;      
+    box-shadow: none;
     font-size: 1rem;
     color: #666;
-    text-align: center;
+    text-align: left;
     max-width: 600px;
+    &:disabled{
+        border-bottom: none;
+        background-color: white;
+    }
   }
   

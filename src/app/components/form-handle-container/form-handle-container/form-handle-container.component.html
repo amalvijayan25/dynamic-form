@@ -5,20 +5,27 @@
   </div>
 </div>
 } @else {
-<div class="header">
+<div class="header" [formGroup]="selectedFormGroup">
   <div class="header-row">
-    <div class="title">{{ selectedForm?.value.formName }}</div>
-
+    <input
+      type="text"
+      class="title-input"
+      formControlName="formName"
+      placeholder="Add Group Name"
+    />
     <div class="action-buttons">
-      <button>Edit</button>
+      <button (click)="toggleEditMode()">
+        {{this.selectedFormGroup.get('formName')?.enabled?'Save':'Edit'}}</button>
       <button>Copy</button>
       <button>Delete</button>
     </div>
   </div>
-
-  <div class="description">
-    This is a description that provides more details about the page or section.
-  </div>
+  <input
+    type="text"
+    class="description"
+    formControlName="description"
+    placeholder="Add description"
+  />
 </div>
 
 }

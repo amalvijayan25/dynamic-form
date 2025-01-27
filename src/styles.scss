@@ -8,3 +8,33 @@
   padding: 0; /* Reset padding */
   box-sizing: border-box; /* Ensure padding/border don't affect width/height */
 }
+.scrollable-container {
+  width: 100%;
+  height: calc(100vh - 3rem);             
+  overflow-y: auto;          
+  background-color: #f5f5f5;  
+
+  &::-webkit-scrollbar {
+    width: 8px;               
+    height: 8px;             
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c1c2c1; 
+    border-radius: 8px;        
+    border: 2px solid #f5f5f5; 
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #e0e0e0;
+    border-radius: 8px;        
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #c8cac8; 
+  }
+
+  /* For Firefox */
+  scrollbar-color: #cecece #e0e0e0;
+  scrollbar-width: thin;          
+}
