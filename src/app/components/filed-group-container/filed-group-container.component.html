@@ -10,11 +10,12 @@
   </div>
   <div class="subtitle">Default field group</div>
   <ul>
-    @for(formGroup of formGroupsControl; track formGroup){
-    <li>
-      {{ formGroup.value.formName }}
-    </li>
-    }
+    <div cdkDropList class="group-list" (cdkDropListDropped)="drop($event)">
+      @for(formGroup of formGroupsControl; track formGroup){
+        <div class="group-box" cdkDrag>{{ formGroup.getRawValue().formName }}</div>
+      }
+    </div>
+    
   </ul>
 </div>
 

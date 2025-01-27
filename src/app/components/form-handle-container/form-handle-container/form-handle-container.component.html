@@ -1,4 +1,4 @@
-@if(!selectedForm){
+@if(!selectedFormGroup){
 <div class="no-data-container">
   <div class="message">
     <p>Create New Group</p>
@@ -26,6 +26,11 @@
     formControlName="description"
     placeholder="Add description"
   />
+  <div formArrayName="fieldArray">
+    @for (field of fieldArrayControls; track $index) {
+        {{field.value.fieldType}}
+    }
+  </div>
 </div>
 
 }

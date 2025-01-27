@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { FormDataService } from '../../services/form-data.service';
 import { FormArray, FormsModule } from '@angular/forms';
-import { FormDataModel } from '../../models/from.model';
-import { CommonModule } from '@angular/common';
+import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-filed-group-container',
-  imports: [FormsModule],
+  imports: [FormsModule,CdkDropList, CdkDrag],
   templateUrl: './filed-group-container.component.html',
   styleUrl: './filed-group-container.component.scss',
 })
@@ -25,6 +24,8 @@ export class FiledGroupContainerComponent {
     if (this.newFormName != '') {
       this.formDataService.addNewFormGroup(this.newFormName);
     }
+    console.log(this.formDataService.dynamicFormsArray.controls);
+    
     this.closeNameModel();
   }
 
@@ -35,5 +36,9 @@ export class FiledGroupContainerComponent {
   public closeNameModel() {
     this.newFormName = '';
     this.showNameModel = false;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.formGroupsControl, event.previousIndex, event.currentIndex);
   }
 }

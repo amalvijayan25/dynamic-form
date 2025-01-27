@@ -2,6 +2,7 @@ import { Component, computed, effect } from '@angular/core';
 import { FormDataService } from '../../../services/form-data.service';
 import {
   AbstractControl,
+  FormArray,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -14,21 +15,17 @@ import {
   styleUrl: './form-handle-container.component.scss',
 })
 export class FormHandleContainerComponent {
-  public selectedForm!: AbstractControl;
   public disableEdit: boolean = true;
+  public selectedFormGroup!: FormGroup;
   constructor(private formDataService: FormDataService) {
-    effect(() => {
-      this.selectedForm =
-        formDataService.dynamicFormsArray.controls[
-          formDataService.selectedFormIndex()
-        ];
-    });
+    effect(()=>{
+      this.selectedFormGroup = this.formDataService.selectedFormGroup();
+    })
   }
 
-  get selectedFormGroup() {
-    return this.selectedForm as FormGroup;
+  public get fieldArrayControls () {
+    return (this.selectedFormGroup.get('fieldArray') as FormArray).controls;
   }
-
   public toggleEditMode() {
     if (this.selectedFormGroup.get('formName')?.enabled) {
       this.selectedFormGroup.get('formName')?.disable();
