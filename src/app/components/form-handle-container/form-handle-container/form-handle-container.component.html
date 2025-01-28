@@ -16,9 +16,9 @@
       />
       <div class="action-buttons">
         @if(this.selectedFormGroup.get("formName")?.enabled){
-          <fa-icon [icon]="faTick" (click)="toggleEditMode()"></fa-icon>
+        <fa-icon [icon]="faTick" (click)="toggleEditMode()"></fa-icon>
         } @else {
-          <fa-icon [icon]="faEdit" (click)="toggleEditMode()"></fa-icon>
+        <fa-icon [icon]="faEdit" (click)="toggleEditMode()"></fa-icon>
         }
         <fa-icon [icon]="faCopy"></fa-icon>
         <fa-icon [icon]="faDelete" (click)="openDeleteConfirmModel()"></fa-icon>
@@ -36,94 +36,128 @@
     <div cdkDropList class="field-list" (cdkDropListDropped)="drop($event)">
       @for (field of fieldArrayControls; track $index) {
       <div class="field-box" cdkDrag [formGroupName]="$index">
-        <fa-icon [icon]="faGrip" ></fa-icon>
-        <input
-          type="text"
-          formControlName="fieldLabel"
-          placeholder="Enter field label"
-        />
-        <input
-          type="text"
-          formControlName="fieldDescription"
-          placeholder="Enter field description"
-        />
-        @switch (field.value.fieldType) { @case (fieldTypeEnum.SingleText) {
+        <fa-icon [icon]="faGrip"></fa-icon>
+        <section class="form-section">
+          <div class="row">
+            <input
+              type="text"
+              formControlName="fieldLabel"
+              placeholder="Enter field label"
+              class="title-input"
+            />
+            @if(this.selectedFormGroup.get("formName")?.enabled){
+            <fa-icon [icon]="faTick"></fa-icon>
+            } @else {
+            <fa-icon [icon]="faEdit"></fa-icon>
+            }
+            <fa-icon [icon]="faCopy"></fa-icon>
+            <fa-icon [icon]="faDelete"></fa-icon>
+          </div>
+          <div class="row">
+            <input
+              type="text"
+              formControlName="fieldDescription"
+              placeholder="Enter field description"
+              class="description-input"
+            />
+          </div>
+          <div class="row">
+            @switch (field.value.fieldType) { @case (fieldTypeEnum.SingleText) {
 
-        <input
-          type="text"
-          formControlName="fieldValue"
-          placeholder="Type here ..."
-        />
-        } @case (fieldTypeEnum.MultiLine) {
+            <input
+              class="value-input"
+              type="text"
+              formControlName="fieldValue"
+              placeholder="Type here ..."
+            />
+            } @case (fieldTypeEnum.MultiLine) {
 
-        <textarea formControlName="fieldValue" placeholder="Type text here ...">
-        </textarea>
-        } @case (fieldTypeEnum.Integer) {
+            <textarea
+              class="value-input"
+              formControlName="fieldValue"
+              placeholder="Type text here ..."
+            >
+            </textarea>
+            } @case (fieldTypeEnum.Integer) {
 
-        <input
-          type="number"
-          formControlName="fieldValue"
-          placeholder="Type Integer here ..."
-        />
-        } @case (fieldTypeEnum.DatePicker) {
+            <input
+              class="value-input"
+              type="number"
+              formControlName="fieldValue"
+              placeholder="Type Integer here ..."
+            />
+            } @case (fieldTypeEnum.DatePicker) {
 
-        <input matInput [matDatepicker]="picker" formControlName="fieldValue" />
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="picker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        } @case (fieldTypeEnum.TimePicker) {
+            <input
+              class="value-input"
+              matInput
+              [matDatepicker]="picker"
+              formControlName="fieldValue"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            } @case (fieldTypeEnum.TimePicker) {
 
-        <input matInput [matTimepicker]="picker" formControlName="fieldValue" />
-        <mat-timepicker-toggle matIconSuffix [for]="picker" />
-        <mat-timepicker #picker />
-        } @case (fieldTypeEnum.DateAndTimePicker) {
+            <input
+              class="value-input"
+              matInput
+              [matTimepicker]="picker"
+              formControlName="fieldValue"
+            />
+            <mat-timepicker-toggle matIconSuffix [for]="picker" />
+            <mat-timepicker #picker />
+            } @case (fieldTypeEnum.DateAndTimePicker) {
 
-        <input
-          matInput
-          placeholder="Choose a date"
-          formControlName="fieldValue"
-          type="datetime-local"
-        />
+            <input
+              class="value-input"
+              matInput
+              placeholder="Choose a date"
+              formControlName="fieldValue"
+              type="datetime-local"
+            />
 
-        } @case (fieldTypeEnum.SingleSelect) { } @case
-        (fieldTypeEnum.MultiSelect) {} @case (fieldTypeEnum.Dropdown) {} @case
-        (fieldTypeEnum.FileUpload) {
+            } @case (fieldTypeEnum.SingleSelect) { } @case
+            (fieldTypeEnum.MultiSelect) {} @case (fieldTypeEnum.Dropdown) {}
+            @case (fieldTypeEnum.FileUpload) {
 
-        <input
-          type="file"
-          id="fileData"
-          name="file Upload"
-          formControlName="fieldValue"
-        />
-        } }
-        {{ field.value.fieldType }}
+            <input
+              class="value-input"
+              type="file"
+              id="fileData"
+              name="file Upload"
+              formControlName="fieldValue"
+            />
+            } }
+          </div>
+        </section>
       </div>
       }
     </div>
   </div>
 </div>
 
-}
-
-@if(showDeleteConfirmModel){
-  <div class="modal-overlay">
-    <div class="modal">
-      <h2 class="modal__header">Delete Form Group</h2>
-      <div class="modal__body">
-        Are you sure you want to delete the form {{selectedFormGroup.get('formName')?.value}}
-      </div>
-      <div class="modal__footer">
-        <button class="button--cancel" (click)="closeDeleteConfirmModel()">Close</button>
-        <button
-          class="button--delete"
-          (click)="deleteFormGroupHandler(selectedFormGroup.get('formID')?.value)"
-        >
-          Delete
-        </button>
-      </div>
+} @if(showDeleteConfirmModel){
+<div class="modal-overlay">
+  <div class="modal">
+    <h2 class="modal__header">Delete Form Group</h2>
+    <div class="modal__body">
+      Are you sure you want to delete the form
+      {{ selectedFormGroup.get("formName")?.value }}
+    </div>
+    <div class="modal__footer">
+      <button class="button--cancel" (click)="closeDeleteConfirmModel()">
+        Close
+      </button>
+      <button
+        class="button--delete"
+        (click)="deleteFormGroupHandler(selectedFormGroup.get('formID')?.value)"
+      >
+        Delete
+      </button>
     </div>
   </div>
-  }
-  
+</div>
+}
