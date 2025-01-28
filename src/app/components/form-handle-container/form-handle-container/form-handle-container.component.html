@@ -16,12 +16,12 @@
       />
       <div class="action-buttons">
         @if(this.selectedFormGroup.get("formName")?.enabled){
-        <fa-icon [icon]="faTick" (click)="toggleEditMode()"></fa-icon>
+        <fa-icon class="action" [icon]="faTick" (click)="toggleEditMode()"></fa-icon>
         } @else {
-        <fa-icon [icon]="faEdit" (click)="toggleEditMode()"></fa-icon>
+        <fa-icon class="action" [icon]="faEdit" (click)="toggleEditMode()"></fa-icon>
         }
-        <fa-icon [icon]="faCopy"></fa-icon>
-        <fa-icon [icon]="faDelete" (click)="openDeleteConfirmModel()"></fa-icon>
+        <fa-icon class="action" [icon]="faCopy"></fa-icon>
+        <fa-icon class="action" [icon]="faDelete" (click)="openGroupDeleteConfirmModel()"></fa-icon>
       </div>
     </div>
     <input
@@ -45,13 +45,13 @@
               placeholder="Enter field label"
               class="title-input"
             />
-            @if(this.selectedFormGroup.get("formName")?.enabled){
-            <fa-icon [icon]="faTick"></fa-icon>
+            @if(isFieldEditEnabled($index)){
+            <fa-icon class="action" [icon]="faTick" (click)="toggleFieldEditMode($index)" ></fa-icon>
             } @else {
-            <fa-icon [icon]="faEdit"></fa-icon>
+            <fa-icon class="action" [icon]="faEdit" (click)="toggleFieldEditMode($index)"></fa-icon>
             }
-            <fa-icon [icon]="faCopy"></fa-icon>
-            <fa-icon [icon]="faDelete"></fa-icon>
+            <fa-icon class="action" [icon]="faCopy"></fa-icon>
+            <fa-icon class="action" [icon]="faDelete" (click)="openFieldDeleteModel($index)"></fa-icon>
           </div>
           <div class="row">
             <input
@@ -148,7 +148,7 @@
       {{ selectedFormGroup.get("formName")?.value }}
     </div>
     <div class="modal__footer">
-      <button class="button--cancel" (click)="closeDeleteConfirmModel()">
+      <button class="button--cancel" (click)="closeGroupDeleteConfirmModel()">
         Close
       </button>
       <button
@@ -161,3 +161,25 @@
   </div>
 </div>
 }
+
+@if(showFieldDeleteConfirmModel){
+  <div class="modal-overlay">
+    <div class="modal">
+      <h2 class="modal__header">Delete Form Field</h2>
+      <div class="modal__body">
+        Are you sure you want to delete this field
+      </div>
+      <div class="modal__footer">
+        <button class="button--cancel" (click)="closeFieldDeleteConfirmModel()">
+          Close
+        </button>
+        <button
+          class="button--delete"
+          (click)="deleteFieldHandler()"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+  }

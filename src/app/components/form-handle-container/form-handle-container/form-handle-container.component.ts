@@ -19,7 +19,13 @@ import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCheck, faCopy, faGripVertical, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faCopy,
+  faGripVertical,
+  faPen,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { FieldType } from '../../../utilities/enums';
 
@@ -34,7 +40,7 @@ import { FieldType } from '../../../utilities/enums';
     MatInputModule,
     MatDatepickerModule,
     MatTimepickerModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './form-handle-container.component.html',
@@ -50,6 +56,9 @@ export class FormHandleContainerComponent {
   public selectedFormGroup!: FormGroup;
   public fieldTypeEnum = FieldType;
   public showDeleteConfirmModel: boolean = false;
+  public showFieldDeleteConfirmModel: boolean = false;
+  public selectedFieldID!: number;
+
   constructor(private formDataService: FormDataService) {
     effect(() => {
       this.selectedFormGroup = this.formDataService.selectedFormGroup();
@@ -68,7 +77,20 @@ export class FormHandleContainerComponent {
       this.selectedFormGroup.get('description')?.enable();
     }
   }
-
+  public isFieldEditEnabled(index: number) {
+    return this.fieldArrayControls.at(index)?.get('fieldLabel')?.enabled;
+  }
+  public toggleFieldEditMode(index: number) {
+    if (this.isFieldEditEnabled(index)) {
+      this.fieldArrayControls.at(index)?.get('fieldLabel')?.disable();
+      this.fieldArrayControls.at(index)?.get('fieldDescription')?.disable();
+      this.fieldArrayControls.at(index)?.get('fieldValue')?.disable();
+    } else {
+      this.fieldArrayControls.at(index)?.get('fieldLabel')?.enable();
+      this.fieldArrayControls.at(index)?.get('fieldDescription')?.enable();
+      this.fieldArrayControls.at(index)?.get('fieldValue')?.enable();
+    }
+  }
   public drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(
       this.fieldArrayControls,
@@ -77,11 +99,11 @@ export class FormHandleContainerComponent {
     );
   }
 
-  public openDeleteConfirmModel() {
+  public openGroupDeleteConfirmModel() {
     this.showDeleteConfirmModel = true;
   }
 
-  public closeDeleteConfirmModel() {
+  public closeGroupDeleteConfirmModel() {
     this.showDeleteConfirmModel = false;
   }
 
@@ -98,5 +120,26 @@ export class FormHandleContainerComponent {
         this.formDataService.selectedFormIndex.set(0);
       }
     }
+  }
+
+  public openFieldDeleteModel(index: number) {
+    this.selectedFieldID = this.fieldArrayControls
+      .at(index)
+      ?.get('fieldID')?.value;
+    this.showFieldDeleteConfirmModel = true;
+  }
+
+  public deleteFieldHandler() {
+    let index = this.fieldArrayControls.findIndex(
+      (field) => field.value.fieldID === this.selectedFieldID
+    );
+    if (index != -1) {
+      (this.selectedFormGroup.get('fieldArray') as FormArray).removeAt(index);
+    }
+    this.closeFieldDeleteConfirmModel();
+  }
+  public closeFieldDeleteConfirmModel() {
+    this.showFieldDeleteConfirmModel = false;
+    this.selectedFieldID = -1;
   }
 }

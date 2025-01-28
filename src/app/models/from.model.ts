@@ -7,7 +7,8 @@ export class FormDataModel {
   public fieldArray!: FieldDataModel[];
 }
 
-export class FieldDataModel {
+export class FieldDataModel {   
+  fieldID!: number;
   fieldType!: FieldType;
   fieldLabel!: string;
   fieldDescription!: string;

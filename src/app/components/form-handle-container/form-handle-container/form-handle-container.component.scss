@@ -54,7 +54,9 @@
     color: #aeaeae;
     font-size: medium;
     padding: .75rem;
-    cursor: pointer;
+    &.action{
+      cursor: pointer;
+    }
     &:hover{
       color: #c6c6c6;
     }
@@ -86,7 +88,7 @@
     display: block;
     background: white;
     overflow-y: scroll;
-    max-height: calc(100vh - 3rem);
+    max-height: calc(100vh - 12rem);
   }
   
   .field-box {
@@ -124,25 +126,34 @@
     .title-input {
       flex: 2;
       padding: 0.5rem;
-      font-size: 1rem;
+      font-size: .75rem;
       border: 1px solid #ccc;
       border-radius: 4px;
+      &:disabled{
+        border: 1px solid #e8e8e8;
+      }
     }
     .description-input {
       width: 100%;
       padding: 0.5rem;
-      font-size: 1rem;
+      font-size: .75rem;
       border: 1px solid #ccc;
       border-radius: 4px;
       resize: none;
+      &:disabled{
+        border: 1px solid #e8e8e8;
+      }
     }
     
     .value-input {
       width: 100%;
       padding: 0.5rem;
-      font-size: 1rem;
+      font-size: .75rem;
       border: 1px solid #ccc;
       border-radius: 4px;
+      &:disabled{
+        border: 1px solid #e8e8e8;
+      }
     }
     
   }
