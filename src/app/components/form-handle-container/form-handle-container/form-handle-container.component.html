@@ -36,7 +36,6 @@
     <div cdkDropList class="field-list" (cdkDropListDropped)="drop($event)">
       @for (field of fieldArrayControls; track $index) {
       <div class="field-box" cdkDrag [formGroupName]="$index">
-        @switch (field.value.fieldType) { @case (fieldTypeEnum.SingleText) {
         <input
           type="text"
           formControlName="fieldLabel"
@@ -47,51 +46,26 @@
           formControlName="fieldDescription"
           placeholder="Enter field description"
         />
+        @switch (field.value.fieldType) { @case (fieldTypeEnum.SingleText) {
+
         <input
           type="text"
           formControlName="fieldValue"
           placeholder="Type here ..."
         />
         } @case (fieldTypeEnum.MultiLine) {
-        <input
-          type="text"
-          formControlName="fieldLabel"
-          placeholder="Enter field label"
-        />
-        <input
-          type="text"
-          formControlName="fieldDescription"
-          placeholder="Enter field description"
-        />
+
         <textarea formControlName="fieldValue" placeholder="Type text here ...">
         </textarea>
         } @case (fieldTypeEnum.Integer) {
-        <input
-          type="text"
-          formControlName="fieldLabel"
-          placeholder="Enter field label"
-        />
-        <input
-          type="text"
-          formControlName="fieldDescription"
-          placeholder="Enter field description"
-        />
+
         <input
           type="number"
           formControlName="fieldValue"
           placeholder="Type Integer here ..."
         />
         } @case (fieldTypeEnum.DatePicker) {
-        <input
-          type="text"
-          formControlName="fieldLabel"
-          placeholder="Enter field label"
-        />
-        <input
-          type="text"
-          formControlName="fieldDescription"
-          placeholder="Enter field description"
-        />
+
         <input matInput [matDatepicker]="picker" formControlName="fieldValue" />
         <mat-datepicker-toggle
           matIconSuffix
@@ -99,30 +73,12 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         } @case (fieldTypeEnum.TimePicker) {
-        <input
-          type="text"
-          formControlName="fieldLabel"
-          placeholder="Enter field label"
-        />
-        <input
-          type="text"
-          formControlName="fieldDescription"
-          placeholder="Enter field description"
-        />
+
         <input matInput [matTimepicker]="picker" formControlName="fieldValue" />
         <mat-timepicker-toggle matIconSuffix [for]="picker" />
         <mat-timepicker #picker />
         } @case (fieldTypeEnum.DateAndTimePicker) {
-        <input
-          type="text"
-          formControlName="fieldLabel"
-          placeholder="Enter field label"
-        />
-        <input
-          type="text"
-          formControlName="fieldDescription"
-          placeholder="Enter field description"
-        />
+
         <input
           matInput
           placeholder="Choose a date"
@@ -130,11 +86,17 @@
           type="datetime-local"
         />
 
-        } @case (fieldTypeEnum.SingleSelect) {
-          
-        } @case
+        } @case (fieldTypeEnum.SingleSelect) { } @case
         (fieldTypeEnum.MultiSelect) {} @case (fieldTypeEnum.Dropdown) {} @case
-        (fieldTypeEnum.FileUpload) {} }
+        (fieldTypeEnum.FileUpload) {
+
+        <input
+          type="file"
+          id="fileData"
+          name="file Upload"
+          formControlName="fieldValue"
+        />
+        } }
         {{ field.value.fieldType }}
       </div>
       }

@@ -15,6 +15,17 @@ export class FormDataService {
 
   constructor(private formBuilder: FormBuilder) {
     this.dynamicFormsArray = formBuilder.array([]);
+    if (localStorage.getItem('DynamicForm')) {
+      let form = JSON.parse(localStorage.getItem('DynamicForm') as string);
+      console.log(form);
+      
+    }
+    this.dynamicFormsArray.valueChanges.subscribe({
+      next: (updatedForm) => {
+        localStorage.setItem('DynamicForm', JSON.stringify(this.dynamicFormsArray.getRawValue()));
+        console.log(updatedForm);
+      },
+    });
   }
 
   public addNewFormGroup(formName: string) {
@@ -29,15 +40,16 @@ export class FormDataService {
 
   public addFormControl(controlDetail: any) {
     let newControl = this.formBuilder.group({
-      fieldType:controlDetail,
+      fieldType: controlDetail,
       fieldValue: [''],
       fieldDescription: [''],
       fieldLabel: [''],
     });
 
-    (this.dynamicFormsArray.controls[
-      this.selectedFormIndex()
-    ].get('fieldArray') as FormArray).push(newControl);
-   
+    (
+      this.dynamicFormsArray.controls[this.selectedFormIndex()].get(
+        'fieldArray'
+      ) as FormArray
+    ).push(newControl);
   }
 }
