@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormDataService } from '../../services/form-data.service';
 import { FormArray, FormsModule } from '@angular/forms';
 import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
+import { FormDataModel } from '../../models/from.model';
 
 @Component({
   selector: 'app-filed-group-container',
@@ -22,7 +23,9 @@ export class FiledGroupContainerComponent {
 
   public addFormGroup() {
     if (this.newFormName != '') {
-      this.formDataService.addNewFormGroup(this.newFormName);
+      let newForm = new FormDataModel();
+      newForm.formName = this.newFormName;
+      this.formDataService.addNewFormGroup(newForm);
     }    
     this.closeNameModel();
   }
