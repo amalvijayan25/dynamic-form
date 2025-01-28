@@ -5,7 +5,9 @@
     <div class="category__name">{{ element.categoryName }}</div>
     @for (control of element.controlList; track $index) {
     <div class="item" (click)="fieldSelectionHandler(control)">
-      <div class="item__icon">{{ control.icon }}</div>
+      <div class="item__icon">
+        <fa-icon class="element" [icon]="control.icon" ></fa-icon>
+      </div>
       <div class="item__details">
         <div class="item__details__name">{{ control.controlName }}</div>
         <div class="item__details__description">

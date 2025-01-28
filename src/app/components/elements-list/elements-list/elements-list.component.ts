@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { FieldType } from '../../../utilities/enums';
 import { FormDataService } from '../../../services/form-data.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faAlignLeft, faCalendar, faCalendarDays, faCalendarTimes, faCircleCheck, faCircleDot, faClock, faFont, faHashtag, faList, faUpload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-elements-list',
-  imports: [],
+  imports: [FontAwesomeModule],
   templateUrl: './elements-list.component.html',
   styleUrl: './elements-list.component.scss',
 })
 export class ElementsListComponent {
+
   public elementsList = [
     {
       categoryName: 'Text',
@@ -17,19 +20,19 @@ export class ElementsListComponent {
           fieldType: FieldType.SingleText,
           controlName: 'Single Line text',
           description: 'Single text area',
-          icon: '',
+          icon: faFont,
         },
         {
           fieldType: FieldType.MultiLine,
           controlName: 'Multi Line text',
           description: 'Multi text area',
-          icon: '',
+          icon: faAlignLeft,
         },
         {
           fieldType: FieldType.Integer,
           controlName: 'Integer',
           description: 'Integer type area',
-          icon: '',
+          icon: faHashtag,
         },
       ],
     },
@@ -40,19 +43,19 @@ export class ElementsListComponent {
           fieldType: FieldType.DatePicker,
           controlName: 'Date',
           description: 'Select date from date picker',
-          icon: '',
+          icon: faCalendar,
         },
         {
           fieldType: FieldType.TimePicker,
           controlName: 'Time',
           description: 'Select time from time picker',
-          icon: '',
+          icon: faClock,
         },
         {
           fieldType: FieldType.DateAndTimePicker,
           controlName: 'Date & Time',
           description: 'Select Date & time from picker',
-          icon: '',
+          icon: faCalendarDays,
         },
       ],
     },
@@ -63,19 +66,19 @@ export class ElementsListComponent {
           fieldType: FieldType.SingleSelect,
           controlName: 'Single Selection',
           description: 'Select single option',
-          icon: '',
+          icon: faCircleDot,
         },
         {
           fieldType: FieldType.MultiSelect,
           controlName: 'Multi Selection',
           description: 'Select multiple options',
-          icon: '',
+          icon: faCircleCheck,
         },
         {
           fieldType: FieldType.Dropdown,
           controlName: 'Dropdown',
           description: 'Select option from dropdown',
-          icon: '',
+          icon: faList,
         },
       ],
     },
@@ -86,7 +89,7 @@ export class ElementsListComponent {
           fieldType: FieldType.FileUpload,
           controlName: 'Upload',
           description: 'Upload documents/media files',
-          icon: '',
+          icon: faUpload,
         },
       ],
     },
