@@ -8,14 +8,18 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { FormDataModel } from '../../models/from.model';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCirclePlus, faGripVertical } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-filed-group-container',
-  imports: [FormsModule, CdkDropList, CdkDrag],
+  imports: [FormsModule, CdkDropList, CdkDrag, FontAwesomeModule],
   templateUrl: './filed-group-container.component.html',
   styleUrl: './filed-group-container.component.scss',
 })
 export class FiledGroupContainerComponent {
+  public readonly faAdd = faCirclePlus;
+  public readonly faGrip = faGripVertical;
   public formGroups!: FormArray;
   public newFormName!: string;
   public showNameModel: boolean = false;
@@ -35,7 +39,7 @@ export class FiledGroupContainerComponent {
       let newForm = new FormDataModel();
       newForm.formID = largestId + 1;
       newForm.formName = this.newFormName;
-      this.formDataService.addNewFormGroup(newForm);
+      this.formDataService.addNewFormGroup(newForm, true);
     }
     this.closeNameModel();
   }

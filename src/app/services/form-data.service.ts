@@ -65,7 +65,7 @@ export class FormDataService {
     return fieldArrayControl;
   }
 
-  public addNewFormGroup(formGroupDetails: FormDataModel) {
+  public addNewFormGroup(formGroupDetails: FormDataModel, isNewForm:boolean=false) {
     let formGroup = this.formBuilder.group({
       formID: formGroupDetails.formID,
       formName: [{ value: formGroupDetails.formName, disabled: true }],
@@ -75,7 +75,11 @@ export class FormDataService {
       fieldArray: this.fieldControlBuild(formGroupDetails.fieldArray),
     });
     this.dynamicFormsArray.push(formGroup);
-    this.selectedFormIndex.set(this.dynamicFormsArray.length - 1);
+    if(isNewForm){
+      this.selectedFormIndex.set(this.dynamicFormsArray.length - 1);
+    } else {
+      this.selectedFormIndex.set(0)
+    }
   }
 
   public addFormControl(controlDetail: any) {

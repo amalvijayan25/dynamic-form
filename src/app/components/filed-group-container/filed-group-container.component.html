@@ -1,13 +1,15 @@
 <div class="left-section">
   <div class="header">
-    <h5>Field Groups</h5>
-    <button class="action-button" (click)="openNameModel()">Create new</button>
+    <h5 class="header-title">Field Groups</h5>
+    <button class="action-button" (click)="openNameModel()">
+      <fa-icon [icon]="faAdd"></fa-icon> Create new</button>
   </div>
   <div class="subtitle">Default field group</div>
   <div cdkDropList class="group-list" (cdkDropListDropped)="drop($event)">
     @if(formGroupsControl.length > 0){ @for(formGroup of formGroupsControl;
     track $index){
     <div class="group-box" cdkDrag (click)="selectFromGroupHandler($index)">
+      <fa-icon class="grip-icon" [icon]="faGrip" ></fa-icon>
       {{ formGroup.getRawValue().formName }}
     </div>
     } } @else {

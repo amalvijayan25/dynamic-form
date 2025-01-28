@@ -15,13 +15,13 @@
         placeholder="Add Group Name"
       />
       <div class="action-buttons">
-        <button (click)="toggleEditMode()">
-          {{
-            this.selectedFormGroup.get("formName")?.enabled ? "Save" : "Edit"
-          }}
-        </button>
-        <button>Copy</button>
-        <button>Delete</button>
+        @if(this.selectedFormGroup.get("formName")?.enabled){
+          <fa-icon [icon]="faTick" (click)="toggleEditMode()"></fa-icon>
+        } @else {
+          <fa-icon [icon]="faEdit" (click)="toggleEditMode()"></fa-icon>
+        }
+        <fa-icon [icon]="faCopy"></fa-icon>
+        <fa-icon [icon]="faDelete" (click)="openDeleteConfirmModel()"></fa-icon>
       </div>
     </div>
     <input
@@ -36,6 +36,7 @@
     <div cdkDropList class="field-list" (cdkDropListDropped)="drop($event)">
       @for (field of fieldArrayControls; track $index) {
       <div class="field-box" cdkDrag [formGroupName]="$index">
+        <fa-icon [icon]="faGrip" ></fa-icon>
         <input
           type="text"
           formControlName="fieldLabel"
@@ -105,3 +106,24 @@
 </div>
 
 }
+
+@if(showDeleteConfirmModel){
+  <div class="modal-overlay">
+    <div class="modal">
+      <h2 class="modal__header">Delete Form Group</h2>
+      <div class="modal__body">
+        Are you sure you want to delete the form {{selectedFormGroup.get('formName')?.value}}
+      </div>
+      <div class="modal__footer">
+        <button class="button--cancel" (click)="closeDeleteConfirmModel()">Close</button>
+        <button
+          class="button--delete"
+          (click)="deleteFormGroupHandler(selectedFormGroup.get('formID')?.value)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+  

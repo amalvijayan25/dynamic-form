@@ -32,7 +32,7 @@
     border: none;
     border-radius: 2rem;
     border-bottom: 1px solid #bababa;
-    background-color: #e4e4e4;
+    background-color: #fcfcfc;
     outline: none;               
     padding: 0.8rem .5rem;        
     box-shadow: none;
@@ -47,30 +47,24 @@
   
   .action-buttons {
     display: flex;
-    gap: 15px; 
+    // gap: 15px; 
   }
   
-  .action-buttons button {
-    padding: 8px 15px;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+  fa-icon{
+    color: #aeaeae;
+    font-size: medium;
+    padding: .75rem;
     cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .action-buttons button:hover {
-    background-color: #0056b3; 
+    &:hover{
+      color: #c6c6c6;
+    }
   }
   
   .description {
     border: none;
     border-bottom: 1px solid #bababa;
     border-radius: 2rem;
-    background-color: #e4e4e4;
+    background-color: #fcfcfc;
     outline: none;               
     padding: 0.8rem 1rem;  
     margin-bottom: 1rem;      
