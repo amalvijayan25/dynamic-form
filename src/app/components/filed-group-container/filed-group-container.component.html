@@ -6,8 +6,8 @@
   <div class="subtitle">Default field group</div>
   <div cdkDropList class="group-list" (cdkDropListDropped)="drop($event)">
     @if(formGroupsControl.length > 0){ @for(formGroup of formGroupsControl;
-    track formGroup){
-    <div class="group-box" cdkDrag>
+    track $index){
+    <div class="group-box" cdkDrag (click)="selectFromGroupHandler($index)">
       {{ formGroup.getRawValue().formName }}
     </div>
     } } @else {

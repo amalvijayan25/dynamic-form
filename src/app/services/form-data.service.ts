@@ -22,37 +22,33 @@ export class FormDataService {
 
   constructor(private formBuilder: FormBuilder) {
     this.dynamicFormsArray = formBuilder.array([]);
-    if (localStorage.getItem('DynamicForm')) {
-      let formDataObject = JSON.parse(localStorage.getItem('DynamicForm') as string);
-      if(formDataObject){
-        formDataObject.forEach((formData:FormDataModel)=>[
-          this.addNewFormGroup(formData)
-        ])
-      }
+    let formDataObject = this.getStoredFormList();
+    if (formDataObject != '') {
+      formDataObject.forEach((formData: FormDataModel) => [
+        this.addNewFormGroup(formData),
+      ]);
     }
     this.dynamicFormsArray.valueChanges.subscribe({
       next: (updatedForm) => {
-        localStorage.setItem(
-          'DynamicForm',
-          JSON.stringify(this.dynamicFormsArray.getRawValue())
-        );
+        this.storeFormList();
       },
     });
   }
 
-  public addNewFormGroup(formGroupDetails: FormDataModel) {
-    let formGroup = this.formBuilder.group({
-      formName: [{ value: formGroupDetails.formName, disabled: true }],
-      description: [
-        { value: formGroupDetails.description || '', disabled: true },
-      ],
-      fieldArray: this.fieldControlBuild(formGroupDetails.fieldArray),
-    });
-    this.dynamicFormsArray.push(formGroup);
-    this.selectedFormIndex.set(this.dynamicFormsArray.length - 1);
+  private getStoredFormList() {
+    return localStorage.getItem('DynamicForm')
+      ? JSON.parse(localStorage.getItem('DynamicForm') || '')
+      : '';
   }
 
-  public fieldControlBuild(fieldArray: FieldDataModel[]) {
+  private storeFormList() {
+    localStorage.setItem(
+      'DynamicForm',
+      JSON.stringify(this.dynamicFormsArray.getRawValue())
+    );
+  }
+
+  private fieldControlBuild(fieldArray: FieldDataModel[]) {
     let fieldArrayControl = this.formBuilder.array([]);
     if (fieldArray?.length) {
       fieldArray.forEach((field) => {
@@ -68,6 +64,20 @@ export class FormDataService {
     }
     return fieldArrayControl;
   }
+
+  public addNewFormGroup(formGroupDetails: FormDataModel) {
+    let formGroup = this.formBuilder.group({
+      formID: formGroupDetails.formID,
+      formName: [{ value: formGroupDetails.formName, disabled: true }],
+      description: [
+        { value: formGroupDetails.description || '', disabled: true },
+      ],
+      fieldArray: this.fieldControlBuild(formGroupDetails.fieldArray),
+    });
+    this.dynamicFormsArray.push(formGroup);
+    this.selectedFormIndex.set(this.dynamicFormsArray.length - 1);
+  }
+
   public addFormControl(controlDetail: any) {
     let newControl = this.formBuilder.group({
       fieldType: controlDetail,
