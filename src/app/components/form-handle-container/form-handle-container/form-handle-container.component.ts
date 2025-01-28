@@ -26,6 +26,7 @@ import {
   faPen,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
+import { MatSelectModule } from '@angular/material/select';
 
 import { FieldType } from '../../../utilities/enums';
 
@@ -41,6 +42,7 @@ import { FieldType } from '../../../utilities/enums';
     MatDatepickerModule,
     MatTimepickerModule,
     FontAwesomeModule,
+    MatSelectModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './form-handle-container.component.html',
@@ -58,7 +60,11 @@ export class FormHandleContainerComponent {
   public showDeleteConfirmModel: boolean = false;
   public showFieldDeleteConfirmModel: boolean = false;
   public selectedFieldID!: number;
-
+  foods = [
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'tacos-2', viewValue: 'Tacos' },
+  ];
   constructor(private formDataService: FormDataService) {
     effect(() => {
       this.selectedFormGroup = this.formDataService.selectedFormGroup();

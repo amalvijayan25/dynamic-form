@@ -97,9 +97,9 @@ export class FormDataService {
     let newControl = this.formBuilder.group({
       fieldID: largestId + 1,
       fieldType: controlDetail,
-      fieldValue: [''],
-      fieldDescription: [''],
-      fieldLabel: [''],
+      fieldValue: [{value:'',disabled:true}],
+      fieldDescription: [{value:'',disabled:true}],
+      fieldLabel: [{value:'',disabled:true}],
     });
 
     (

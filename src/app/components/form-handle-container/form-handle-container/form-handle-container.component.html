@@ -16,12 +16,24 @@
       />
       <div class="action-buttons">
         @if(this.selectedFormGroup.get("formName")?.enabled){
-        <fa-icon class="action" [icon]="faTick" (click)="toggleEditMode()"></fa-icon>
+        <fa-icon
+          class="action"
+          [icon]="faTick"
+          (click)="toggleEditMode()"
+        ></fa-icon>
         } @else {
-        <fa-icon class="action" [icon]="faEdit" (click)="toggleEditMode()"></fa-icon>
+        <fa-icon
+          class="action"
+          [icon]="faEdit"
+          (click)="toggleEditMode()"
+        ></fa-icon>
         }
         <fa-icon class="action" [icon]="faCopy"></fa-icon>
-        <fa-icon class="action" [icon]="faDelete" (click)="openGroupDeleteConfirmModel()"></fa-icon>
+        <fa-icon
+          class="action"
+          [icon]="faDelete"
+          (click)="openGroupDeleteConfirmModel()"
+        ></fa-icon>
       </div>
     </div>
     <input
@@ -46,12 +58,24 @@
               class="title-input"
             />
             @if(isFieldEditEnabled($index)){
-            <fa-icon class="action" [icon]="faTick" (click)="toggleFieldEditMode($index)" ></fa-icon>
+            <fa-icon
+              class="action"
+              [icon]="faTick"
+              (click)="toggleFieldEditMode($index)"
+            ></fa-icon>
             } @else {
-            <fa-icon class="action" [icon]="faEdit" (click)="toggleFieldEditMode($index)"></fa-icon>
+            <fa-icon
+              class="action"
+              [icon]="faEdit"
+              (click)="toggleFieldEditMode($index)"
+            ></fa-icon>
             }
             <fa-icon class="action" [icon]="faCopy"></fa-icon>
-            <fa-icon class="action" [icon]="faDelete" (click)="openFieldDeleteModel($index)"></fa-icon>
+            <fa-icon
+              class="action"
+              [icon]="faDelete"
+              (click)="openFieldDeleteModel($index)"
+            ></fa-icon>
           </div>
           <div class="row">
             <input
@@ -119,9 +143,30 @@
               type="datetime-local"
             />
 
-            } @case (fieldTypeEnum.SingleSelect) { } @case
-            (fieldTypeEnum.MultiSelect) {} @case (fieldTypeEnum.Dropdown) {}
-            @case (fieldTypeEnum.FileUpload) {
+            } @case (fieldTypeEnum.SingleSelect) {
+            <mat-select formControlName="fieldValue" class="value-input">
+              @for (food of foods; track food) {
+              <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
+              }
+            </mat-select>
+            } @case (fieldTypeEnum.MultiSelect) {
+            <mat-select
+              formControlName="fieldValue"
+              multiple
+              class="value-input"
+            >
+              @for (food of foods; track food) {
+              <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
+              }
+            </mat-select>
+            } @case (fieldTypeEnum.Dropdown) {
+              <mat-select formControlName="fieldValue" class="value-input">
+                @for (food of foods; track food) {
+                <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
+                }
+              </mat-select>
+            } @case (fieldTypeEnum.FileUpload)
+            {
 
             <input
               class="value-input"
@@ -160,26 +205,19 @@
     </div>
   </div>
 </div>
-}
-
-@if(showFieldDeleteConfirmModel){
-  <div class="modal-overlay">
-    <div class="modal">
-      <h2 class="modal__header">Delete Form Field</h2>
-      <div class="modal__body">
-        Are you sure you want to delete this field
-      </div>
-      <div class="modal__footer">
-        <button class="button--cancel" (click)="closeFieldDeleteConfirmModel()">
-          Close
-        </button>
-        <button
-          class="button--delete"
-          (click)="deleteFieldHandler()"
-        >
-          Delete
-        </button>
-      </div>
+} @if(showFieldDeleteConfirmModel){
+<div class="modal-overlay">
+  <div class="modal">
+    <h2 class="modal__header">Delete Form Field</h2>
+    <div class="modal__body">Are you sure you want to delete this field</div>
+    <div class="modal__footer">
+      <button class="button--cancel" (click)="closeFieldDeleteConfirmModel()">
+        Close
+      </button>
+      <button class="button--delete" (click)="deleteFieldHandler()">
+        Delete
+      </button>
     </div>
   </div>
-  }
+</div>
+}
