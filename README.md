@@ -10,7 +10,7 @@ Also, should have Angular cli of latest version installed globally
 To start a local development server, run:
 
 ```bash
-npm install --legacy-peer-deps
+npm install
 ``` 
 ```bash
 ng serve
