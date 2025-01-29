@@ -1,6 +1,7 @@
 import { Component, computed, effect } from '@angular/core';
 import { FormDataService } from '../../../services/form-data.service';
 import {
+  AbstractControl,
   FormArray,
   FormGroup,
   FormsModule,
@@ -29,6 +30,7 @@ import {
 import { MatSelectModule } from '@angular/material/select';
 
 import { FieldType } from '../../../utilities/enums';
+import { FieldDataModel } from '../../../models/from.model';
 
 @Component({
   selector: 'app-form-handle-container',
@@ -60,8 +62,8 @@ export class FormHandleContainerComponent {
   public showDeleteConfirmModel: boolean = false;
   public showFieldDeleteConfirmModel: boolean = false;
   public showGroupCopyConfirmModel: boolean = false;
-
-  public selectedFieldID!: number;
+  public showFieldCopyConfirmModel: boolean = false;
+  public selectedFieldID!: FieldDataModel;
   foods = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
@@ -132,28 +134,7 @@ export class FormHandleContainerComponent {
     }
     this.closeGroupDeleteConfirmModel();
   }
-
-  public openFieldDeleteModel(index: number) {
-    this.selectedFieldID = this.fieldArrayControls
-      .at(index)
-      ?.get('fieldID')?.value;
-    this.showFieldDeleteConfirmModel = true;
-  }
-
-  public deleteFieldHandler() {
-    let index = this.fieldArrayControls.findIndex(
-      (field) => field.value.fieldID === this.selectedFieldID
-    );
-    if (index != -1) {
-      (this.selectedFormGroup.get('fieldArray') as FormArray).removeAt(index);
-    }
-    this.closeFieldDeleteConfirmModel();
-  }
-  public closeFieldDeleteConfirmModel() {
-    this.showFieldDeleteConfirmModel = false;
-    this.selectedFieldID = -1;
-  }
-
+  
   public openCopyGroupModel() {
     this.showGroupCopyConfirmModel = true;
   }
@@ -167,4 +148,42 @@ export class FormHandleContainerComponent {
     this.formDataService.addNewFormGroup(copyFormData, true);
     this.closeCopyGroupModel();
   }
+
+  public openFieldDeleteModel(index: number) {
+    this.selectedFieldID = this.fieldArrayControls
+      .at(index)?.getRawValue();
+    this.showFieldDeleteConfirmModel = true;
+  }
+
+  public deleteFieldHandler() {
+    let index = this.fieldArrayControls.findIndex(
+      (field) => field.value.fieldID === this.selectedFieldID.fieldID
+    );
+    if (index != -1) {
+      (this.selectedFormGroup.get('fieldArray') as FormArray).removeAt(index);
+    }
+    this.closeFieldDeleteConfirmModel();
+  }
+  public closeFieldDeleteConfirmModel() {
+    this.showFieldDeleteConfirmModel = false;
+    this.selectedFieldID = new FieldDataModel();
+  }
+
+  public openFieldCopyModel(index:number){
+    this.selectedFieldID = this.fieldArrayControls
+    .at(index)
+    ?.getRawValue();
+    this.showFieldCopyConfirmModel = true;
+  }
+
+  public closeFieldCopyModel(){
+    this.showFieldCopyConfirmModel = false;
+    this.selectedFieldID = new FieldDataModel();
+  }
+
+  public fieldCopyHandler(){
+    this.formDataService.addFormControl(this.selectedFieldID.fieldType);
+    this.closeFieldCopyModel();
+  }
+
 }

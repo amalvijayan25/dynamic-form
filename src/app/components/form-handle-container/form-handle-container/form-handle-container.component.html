@@ -74,7 +74,11 @@
               (click)="toggleFieldEditMode($index)"
             ></fa-icon>
             }
-            <fa-icon class="action" [icon]="faCopy"></fa-icon>
+            <fa-icon
+              class="action"
+              [icon]="faCopy"
+              (click)="openFieldCopyModel($index)"
+            ></fa-icon>
             <fa-icon
               class="action"
               [icon]="faDelete"
@@ -208,6 +212,24 @@
     </div>
   </div>
 </div>
+} @if(showGroupCopyConfirmModel){
+<div class="modal-overlay">
+  <div class="modal">
+    <h2 class="modal__header">Create a copy of the Group</h2>
+    <div class="modal__body">
+      Do you want to create a copy of the Group
+      {{ selectedFormGroup.get("formName")?.value }} ?
+    </div>
+    <div class="modal__footer">
+      <button class="button--cancel" (click)="closeCopyGroupModel()">
+        Close
+      </button>
+      <button class="button--confirm" (click)="copyGrouphandler()">
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>
 } @if(showFieldDeleteConfirmModel){
 <div class="modal-overlay">
   <div class="modal">
@@ -223,19 +245,16 @@
     </div>
   </div>
 </div>
-} @if(showGroupCopyConfirmModel){
+} @if(showFieldCopyConfirmModel){
 <div class="modal-overlay">
   <div class="modal">
-    <h2 class="modal__header">Create a copy of the Group</h2>
-    <div class="modal__body">
-      Do you want to create a copy of the Group
-      {{ selectedFormGroup.get("formName")?.value }} ?
-    </div>
+    <h2 class="modal__header">Create Copy of Form Field</h2>
+    <div class="modal__body">Do you want to create a copy of this field</div>
     <div class="modal__footer">
-      <button class="button--cancel" (click)="closeCopyGroupModel()">
+      <button class="button--cancel" (click)="closeFieldCopyModel()">
         Close
       </button>
-      <button class="button--confirm" (click)="copyGrouphandler()">
+      <button class="button--confirm" (click)="fieldCopyHandler()">
         Confirm
       </button>
     </div>

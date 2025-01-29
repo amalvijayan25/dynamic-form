@@ -90,7 +90,7 @@ export class FormDataService {
     }
   }
 
-  public addFormControl(controlDetail: any) {
+  public addFormControl(controlDetail: number) {
     let selectedFormFieldArray = this.selectedFormGroup().get(
       'fieldArray'
     ) as FormArray;
