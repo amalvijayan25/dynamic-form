@@ -103,6 +103,8 @@ export class FormHandleContainerComponent {
       event.previousIndex,
       event.currentIndex
     );
+
+    this.formDataService.dynamicFormsArray.updateValueAndValidity();
   }
 
   public openGroupDeleteConfirmModel() {
