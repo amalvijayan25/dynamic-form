@@ -59,6 +59,8 @@ export class FormHandleContainerComponent {
   public fieldTypeEnum = FieldType;
   public showDeleteConfirmModel: boolean = false;
   public showFieldDeleteConfirmModel: boolean = false;
+  public showGroupCopyConfirmModel: boolean = false;
+
   public selectedFieldID!: number;
   foods = [
     { value: 'steak-0', viewValue: 'Steak' },
@@ -128,6 +130,7 @@ export class FormHandleContainerComponent {
         this.formDataService.selectedFormIndex.set(0);
       }
     }
+    this.closeGroupDeleteConfirmModel();
   }
 
   public openFieldDeleteModel(index: number) {
@@ -149,5 +152,19 @@ export class FormHandleContainerComponent {
   public closeFieldDeleteConfirmModel() {
     this.showFieldDeleteConfirmModel = false;
     this.selectedFieldID = -1;
+  }
+
+  public openCopyGroupModel() {
+    this.showGroupCopyConfirmModel = true;
+  }
+  public closeCopyGroupModel() {
+    this.showGroupCopyConfirmModel = false;
+  }
+
+  public copyGrouphandler() {
+    let copyFormData = this.selectedFormGroup.getRawValue();
+    copyFormData.formName = this.selectedFormGroup.get('formName')?.value + '- Copy';
+    this.formDataService.addNewFormGroup(copyFormData, true);
+    this.closeCopyGroupModel();
   }
 }

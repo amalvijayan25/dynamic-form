@@ -28,7 +28,11 @@
           (click)="toggleEditMode()"
         ></fa-icon>
         }
-        <fa-icon class="action" [icon]="faCopy"></fa-icon>
+        <fa-icon
+          class="action"
+          [icon]="faCopy"
+          (click)="openCopyGroupModel()"
+        ></fa-icon>
         <fa-icon
           class="action"
           [icon]="faDelete"
@@ -160,13 +164,12 @@
               }
             </mat-select>
             } @case (fieldTypeEnum.Dropdown) {
-              <mat-select formControlName="fieldValue" class="value-input">
-                @for (food of foods; track food) {
-                <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
-                }
-              </mat-select>
-            } @case (fieldTypeEnum.FileUpload)
-            {
+            <mat-select formControlName="fieldValue" class="value-input">
+              @for (food of foods; track food) {
+              <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
+              }
+            </mat-select>
+            } @case (fieldTypeEnum.FileUpload) {
 
             <input
               class="value-input"
@@ -216,6 +219,24 @@
       </button>
       <button class="button--delete" (click)="deleteFieldHandler()">
         Delete
+      </button>
+    </div>
+  </div>
+</div>
+} @if(showGroupCopyConfirmModel){
+<div class="modal-overlay">
+  <div class="modal">
+    <h2 class="modal__header">Create a copy of the Group</h2>
+    <div class="modal__body">
+      Do you want to create a copy of the Group
+      {{ selectedFormGroup.get("formName")?.value }} ?
+    </div>
+    <div class="modal__footer">
+      <button class="button--cancel" (click)="closeCopyGroupModel()">
+        Close
+      </button>
+      <button class="button--confirm" (click)="copyGrouphandler()">
+        Confirm
       </button>
     </div>
   </div>

@@ -32,12 +32,7 @@ export class FiledGroupContainerComponent {
 
   public addFormGroup() {
     if (this.newFormName != '') {
-      const largestId = this.formDataService.dynamicFormsArray
-        .getRawValue()
-        .reduce((max, form) => (form.formID > max ? form.formID : max), 0);
-
-      let newForm = new FormDataModel();
-      newForm.formID = largestId + 1;
+     let newForm = new FormDataModel();
       newForm.formName = this.newFormName;
       this.formDataService.addNewFormGroup(newForm, true);
     }

@@ -70,8 +70,12 @@ export class FormDataService {
     formGroupDetails: FormDataModel,
     isNewForm: boolean = false
   ) {
+    let formID = isNewForm
+      ? this.getNewGroupID(this.dynamicFormsArray)
+      : formGroupDetails.formID;
+
     let formGroup = this.formBuilder.group({
-      formID: formGroupDetails.formID,
+      formID: formID,
       formName: [{ value: formGroupDetails.formName, disabled: true }],
       description: [
         { value: formGroupDetails.description || '', disabled: true },
@@ -90,16 +94,13 @@ export class FormDataService {
     let selectedFormFieldArray = this.selectedFormGroup().get(
       'fieldArray'
     ) as FormArray;
-    const largestId = selectedFormFieldArray
-      .getRawValue()
-      .reduce((max, field) => (field.fieldID > max ? field.fieldID : max), 0);
 
     let newControl = this.formBuilder.group({
-      fieldID: largestId + 1,
+      fieldID: this.getNewFieldID(selectedFormFieldArray),
       fieldType: controlDetail,
-      fieldValue: [{value:'',disabled:true}],
-      fieldDescription: [{value:'',disabled:true}],
-      fieldLabel: [{value:'',disabled:true}],
+      fieldValue: [{ value: '', disabled: true }],
+      fieldDescription: [{ value: '', disabled: true }],
+      fieldLabel: [{ value: '', disabled: true }],
     });
 
     (
@@ -107,5 +108,24 @@ export class FormDataService {
         'fieldArray'
       ) as FormArray
     ).push(newControl);
+  }
+
+  private getNewFieldID(formArray: FormArray) {
+    return (
+      formArray
+        .getRawValue()
+        .reduce(
+          (max, field) => (field.fieldID > max ? field.fieldID : max),
+          0
+        ) + 1
+    );
+  }
+
+  private getNewGroupID(formArray: FormArray) {
+    return (
+      formArray
+        .getRawValue()
+        .reduce((max, form) => (form.formID > max ? form.formID : max), 0) + 1
+    );
   }
 }
