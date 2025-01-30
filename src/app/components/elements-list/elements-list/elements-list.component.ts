@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FieldType } from '../../../utilities/enums';
 import { FormDataService } from '../../../services/form-data.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faAlignLeft, faCalendar, faCalendarDays, faCalendarTimes, faCircleCheck, faCircleDot, faClock, faFont, faHashtag, faList, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faCalendar, faCalendarDays, faCircleCheck, faCircleDot, faClock, faFont, faHashtag, faList, faUpload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-elements-list',
@@ -97,6 +97,10 @@ export class ElementsListComponent {
 
   constructor(private formDataService: FormDataService){
 
+  }
+ 
+  public elementDragStartHandler(fieldType: number){
+    this.formDataService.dragginFieldType.set(fieldType);
   }
 
   public fieldSelectionHandler(selectedControl:any) {

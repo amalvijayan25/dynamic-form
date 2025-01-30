@@ -14,6 +14,7 @@ import { FieldDataModel, FormDataModel } from '../models/from.model';
 export class FormDataService {
   public dynamicFormsArray!: FormArray;
   public selectedFormIndex = signal<number>(-1);
+  public dragginFieldType = signal<number>(-1);
   public selectedFormGroup = computed(() => {
     return this.dynamicFormsArray.controls[
       this.selectedFormIndex()

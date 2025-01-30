@@ -186,4 +186,11 @@ export class FormHandleContainerComponent {
     this.closeFieldCopyModel();
   }
 
+  public fieldDropEventHandler(event:any){
+    event.preventDefault();
+    this.formDataService.addFormControl(this.formDataService.dragginFieldType());
+  }
+  public onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
 }

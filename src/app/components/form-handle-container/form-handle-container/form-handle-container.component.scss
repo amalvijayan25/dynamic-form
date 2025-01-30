@@ -84,7 +84,7 @@
   .field-list {
     max-width: 100%;
     border: none;
-    min-height: 60px;
+    min-height: calc(100vh - 12rem);
     display: block;
     background: white;
     overflow-y: scroll;

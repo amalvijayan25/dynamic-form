@@ -4,15 +4,18 @@
   <li class="category">
     <div class="category__name">{{ element.categoryName }}</div>
     @for (control of element.controlList; track $index) {
-    <div class="item" (click)="fieldSelectionHandler(control)">
+    <div
+      class="item draggable"
+      (click)="fieldSelectionHandler(control)"
+      [draggable]="true"
+      (dragstart)="elementDragStartHandler(control.fieldType)"
+    >
       <div class="item__icon">
-        <fa-icon class="element" [icon]="control.icon" ></fa-icon>
+        <fa-icon class="element" [icon]="control.icon"></fa-icon>
       </div>
       <div class="item__details">
         <div class="item__details__name">{{ control.controlName }}</div>
-        <div class="item__details__description">
-            {{ control.description }}.
-        </div>
+        <div class="item__details__description">{{ control.description }}.</div>
       </div>
     </div>
     }

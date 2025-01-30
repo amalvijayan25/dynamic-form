@@ -48,7 +48,7 @@
     />
   </div>
 
-  <div formArrayName="fieldArray">
+  <div formArrayName="fieldArray" (drop)="fieldDropEventHandler($event)" (dragover)="onDragOver($event)">
     <div cdkDropList class="field-list" (cdkDropListDropped)="drop($event)">
       @for (field of fieldArrayControls; track $index) {
       <div class="field-box" cdkDrag [formGroupName]="$index">
